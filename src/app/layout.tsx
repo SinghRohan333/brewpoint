@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -28,7 +30,11 @@ export default function RootLayout({
       <body
         className={`${instrumentSerif.variable} ${inter.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

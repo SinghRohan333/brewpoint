@@ -1,7 +1,12 @@
+import Hero from "@/components/home/Hero";
+import RoastDivider from "@/components/layout/RoastDivider";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <h1 className="font-display text-5xl text-gold">Brewpoint</h1>
+    <main>
+      <Hero />
+      <RoastDivider />
+      {/* remaining sections next */}
     </main>
   );
 }
