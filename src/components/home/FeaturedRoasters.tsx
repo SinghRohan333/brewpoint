@@ -6,14 +6,16 @@ const roasters = [
     location: "Portland, OR",
     tagline: "Small-batch roasting focused on single-origin transparency.",
     since: "2019",
-    image: "https://loremflickr.com/640/480/coffee?random=30",
+    image:
+      "https://res.cloudinary.com/dcu16rh2e/image/upload/v1783979276/1_Cedar_Stone_Roasters-clean_xo3qtj.png",
   },
   {
     name: "Pourhouse Supply Co.",
     location: "Austin, TX",
     tagline: "Equipment makers obsessed with precision brewing.",
     since: "2021",
-    image: "https://loremflickr.com/640/480/barista?random=31",
+    image:
+      "https://res.cloudinary.com/dcu16rh2e/image/upload/v1783979284/2_Pourhouse_Supply_Co-clean_uohcnk.png",
   },
   {
     name: "Northbound Coffee",
@@ -21,7 +23,8 @@ const roasters = [
     tagline:
       "Direct-trade beans sourced through long-term farmer partnerships.",
     since: "2017",
-    image: "https://loremflickr.com/640/480/espresso?random=32",
+    image:
+      "https://res.cloudinary.com/dcu16rh2e/image/upload/v1783979281/3_Northbound_Coffee-clean_ymgzeu.png",
   },
 ];
 
