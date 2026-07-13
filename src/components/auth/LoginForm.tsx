@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, Lock, Sparkles } from "lucide-react";
+import { Mail, Lock, Sparkles, EyeOff, Eye } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = () => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
@@ -96,12 +97,19 @@ export default function LoginForm() {
               className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/40"
             />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-4 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
+              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-12 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/40 transition-colors hover:text-cream/70"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
         </div>
 
