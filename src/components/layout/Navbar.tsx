@@ -23,7 +23,13 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const links = user ? [...baseLinks, ...authedLinks] : baseLinks;
+  const links = user
+    ? [
+        ...baseLinks,
+        ...authedLinks,
+        ...(user.role === "admin" ? [{ href: "/admin", label: "Admin" }] : []),
+      ]
+    : baseLinks;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
