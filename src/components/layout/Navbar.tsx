@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, User, LogOut } from "lucide-react";
+import { toast } from "react-toastify";
 import { useAuth } from "@/context/AuthContext";
 
 const baseLinks = [
@@ -18,9 +20,19 @@ const authedLinks = [
 
 export default function Navbar() {
   const { user, logout, loading } = useAuth();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const links = user ? [...baseLinks, ...authedLinks] : baseLinks;
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const handleLogout = async () => {
+    await logout();
+    toast.success("Logged out successfully");
+    setOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-cream/10 bg-espresso/95 backdrop-blur">
@@ -34,7 +46,11 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-cream/80 transition-colors hover:text-gold"
+              className={`text-sm transition-colors ${
+                isActive(link.href)
+                  ? "font-medium text-gold"
+                  : "text-cream/80 hover:text-gold"
+              }`}
             >
               {link.label}
             </Link>
@@ -49,7 +65,7 @@ export default function Navbar() {
                 {user.name.split(" ")[0]}
               </span>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="flex items-center gap-2 rounded-full border border-cream/20 px-4 py-2 text-sm text-cream/80 transition-colors hover:border-gold hover:text-gold"
               >
                 <LogOut size={16} />
@@ -91,7 +107,11 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-sm text-cream/80 hover:text-gold"
+                className={`text-sm ${
+                  isActive(link.href)
+                    ? "font-medium text-gold"
+                    : "text-cream/80 hover:text-gold"
+                }`}
               >
                 {link.label}
               </Link>
@@ -99,10 +119,7 @@ export default function Navbar() {
             <div className="mt-2 flex flex-col gap-3 border-t border-cream/10 pt-4">
               {user ? (
                 <button
-                  onClick={() => {
-                    logout();
-                    setOpen(false);
-                  }}
+                  onClick={handleLogout}
                   className="text-left text-sm text-cream/80 hover:text-gold"
                 >
                   Logout
