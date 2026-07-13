@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { User, Mail, Lock } from "lucide-react";
+import { User, Mail, Lock, EyeOff, Eye } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -17,6 +17,8 @@ export default function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validate = () => {
     if (name.trim().length < 2) return "Enter your full name";
@@ -97,12 +99,19 @@ export default function RegisterForm() {
               className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/40"
             />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 6 characters"
-              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-4 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
+              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-12 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/40 transition-colors hover:text-cream/70"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
         </div>
 
@@ -114,12 +123,19 @@ export default function RegisterForm() {
               className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/40"
             />
             <input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Repeat password"
-              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-4 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
+              className="w-full rounded-full border border-cream/20 bg-espresso-light py-3 pl-11 pr-12 text-sm text-cream placeholder:text-cream/30 focus:border-gold focus:outline-none"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/40 transition-colors hover:text-cream/70"
+            >
+              {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
         </div>
 
