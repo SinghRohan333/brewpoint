@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function ContactForm() {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ export default function ContactForm() {
     return "";
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) return setError(validationError);
@@ -40,8 +41,11 @@ export default function ContactForm() {
       setSubmitted(true);
       setSubject("");
       setMessage("");
+      toast.success("Message sent!");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to send message");
+      const msg = err instanceof Error ? err.message : "Failed to send message";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }
