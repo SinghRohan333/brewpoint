@@ -27,7 +27,7 @@ export default function RegisterForm() {
     return "";
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) return setError(validationError);
