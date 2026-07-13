@@ -2,20 +2,23 @@
 
 import { useState } from "react";
 import { Mail, CheckCircle2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Enter a valid email address");
+      toast.error("Enter a valid email address");
       return;
     }
     setError("");
     setSubmitted(true);
+    toast.success("Subscribed! Welcome aboard.");
   };
 
   return (
