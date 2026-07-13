@@ -14,3 +14,17 @@ export interface Product {
   sellerId: string;
   createdAt: string;
 }
+
+export interface AdminUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: "user" | "admin";
+  createdAt: string;
+  productCount: number;
+}
+
+export interface AdminProduct extends Product {
+  sellerName: string;
+  sellerEmail: string;
+}
