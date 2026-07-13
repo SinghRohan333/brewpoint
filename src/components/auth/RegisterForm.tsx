@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { User, Mail, Lock } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function RegisterForm() {
   const { register } = useAuth();
@@ -35,9 +36,12 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       await register(name, email, password);
+      toast.success("Account created! Welcome to Brewpoint.");
       router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed");
+      const msg = err instanceof Error ? err.message : "Registration failed";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
