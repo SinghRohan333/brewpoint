@@ -67,7 +67,7 @@ export default function LoginForm() {
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-sage/40 bg-sage/10 px-4 py-2.5 text-sm font-medium text-sage transition-colors hover:bg-sage/20"
       >
         <Sparkles size={16} />
-        Fill Demo Credentials
+        Fill Demo Credentials (User)
       </button>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
