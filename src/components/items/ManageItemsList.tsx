@@ -6,6 +6,7 @@ import { Star, Trash2, Eye, Package } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { Product } from "@/lib/types";
+import { toast } from "react-toastify";
 
 export default function ManageItemsList() {
   const { accessToken } = useAuth();
@@ -40,8 +41,9 @@ export default function ManageItemsList() {
         token: accessToken || undefined,
       });
       setProducts((prev) => prev.filter((p) => p._id !== id));
+      toast.success("Item deleted");
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to delete item");
+      toast.error(err instanceof Error ? err.message : "Failed to delete item");
     } finally {
       setDeletingId(null);
       setConfirmId(null);

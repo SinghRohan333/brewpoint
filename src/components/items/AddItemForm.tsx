@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Plus, X } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 const categories = [
   { value: "beans", label: "Coffee Beans" },
@@ -74,9 +75,12 @@ export default function AddItemForm() {
           images: images.filter((img) => img.trim() !== ""),
         }),
       });
+      toast.success("Item listed successfully!");
       router.push(`/products/${data.data._id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add item");
+      const msg = err instanceof Error ? err.message : "Failed to add item";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }
