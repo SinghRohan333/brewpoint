@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 interface Review {
   _id: string;
@@ -46,7 +47,7 @@ export default function ReviewsSection({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (rating === 0) return setError("Select a star rating");
     if (!comment.trim()) return setError("Write a comment");
@@ -62,8 +63,12 @@ export default function ReviewsSection({
       setComment("");
       setRating(0);
       await fetchReviews();
+      toast.success("Review submitted — thanks for sharing!");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to submit review");
+      const msg =
+        err instanceof Error ? err.message : "Failed to submit review";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }
