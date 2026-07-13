@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, Sparkles } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 const DEMO_EMAIL = "demo.user@brewpoint.com";
 const DEMO_PASSWORD = "Demo@1234";
@@ -27,7 +28,7 @@ export default function LoginForm() {
     return "";
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) return setError(validationError);
@@ -36,9 +37,12 @@ export default function LoginForm() {
     setLoading(true);
     try {
       await login(email, password);
+      toast.success("Welcome back!");
       router.push(redirectTo);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      const msg = err instanceof Error ? err.message : "Login failed";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
