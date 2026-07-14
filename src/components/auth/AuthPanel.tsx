@@ -4,7 +4,7 @@ export default function AuthPanel() {
   return (
     <div className="relative hidden overflow-hidden bg-espresso-light lg:block">
       <img
-        src="https://loremflickr.com/1200/1600/coffee?random=40"
+        src="/auth-panel.png"
         alt=""
         className="h-full w-full object-cover opacity-40"
       />
