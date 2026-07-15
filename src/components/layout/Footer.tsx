@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -30,7 +31,7 @@ export default function Footer() {
                 aria-label="Twitter"
                 className="text-cream/60 hover:text-gold"
               >
-                <FaTwitter size={18} />
+                <FaXTwitter size={18} />
               </a>
               <a
                 href="https://facebook.com"
