@@ -49,6 +49,7 @@ export default function GoogleButton({
         shape: "pill",
         width: 320,
         text: "continue_with",
+        locale: "en",
       });
 
       isInitialized.current = true;
