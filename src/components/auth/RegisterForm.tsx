@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { User, Mail, Lock, EyeOff, Eye } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-toastify";
+import GoogleButton from "./GoogleButton";
 
 export default function RegisterForm() {
   const { register } = useAuth();
@@ -55,6 +56,16 @@ export default function RegisterForm() {
       <p className="mt-2 text-sm text-cream/60">
         Join Brewpoint to buy, sell, and review.
       </p>
+
+      <div className="mt-6">
+        <GoogleButton />
+      </div>
+
+      <div className="mt-6 flex items-center gap-3">
+        <div className="h-px flex-1 bg-cream/10" />
+        <span className="text-xs text-cream/40">or continue with email</span>
+        <div className="h-px flex-1 bg-cream/10" />
+      </div>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>

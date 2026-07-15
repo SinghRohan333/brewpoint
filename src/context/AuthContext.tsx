@@ -22,6 +22,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  loginWithGoogle: (credential: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -79,6 +80,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.user);
   };
 
+  const loginWithGoogle = async (credential: string) => {
+    const data = await apiFetch<{ accessToken: string; user: User }>(
+      "/auth/google",
+      {
+        method: "POST",
+        body: JSON.stringify({ credential }),
+      },
+    );
+    setAccessToken(data.accessToken);
+    setUser(data.user);
+  };
+
   const logout = async () => {
     await apiFetch("/auth/logout", { method: "POST" });
     setAccessToken(null);
@@ -87,7 +100,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, accessToken, loading, login, register, logout }}
+      value={{
+        user,
+        accessToken,
+        loading,
+        login,
+        register,
+        logout,
+        loginWithGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>
